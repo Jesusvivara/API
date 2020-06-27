@@ -25,6 +25,7 @@ function getCategories() {
             printCategories(dataJson.trivia_categories)
         })
         .catch(error => {
+          
             console.error(error)
         })
 }
@@ -89,38 +90,120 @@ function getDataTrivia() {
         .then(response => response.json())
         .then(dataJsonT => {
             console.log(dataJsonT)
-            PrintQuestions(dataJsonT.results)
+            if(dataJsonT.response_code == 0) {
+              PrintQuestions(dataJsonT.results)
+            } else {
+              alert('No hay datos')
+            }
         })
         .catch(error => {
             console.error(error)
         })
 }
-
-
-
 function PrintQuestions(Questions) {
-     const PrintQuestions = document.getElementById(`Questions`)
-     const IncorrectQuest = Questions.map(function(incorrectAnswer) {
-         return incorrectAnswer.incorrect_answers
+    const PrintQuestions = document.getElementById(`Questions`)
+
+
+if (selectType() =='multiple'){
+
+     const CorrectQuest = Questions.map(function(CorrectAns) {
+        return CorrectAns.correct_answer
+    })
+
+     const IncorrectQuest1 = Questions.map(function(incorrectAnswer) {
+         return incorrectAnswer.incorrect_answers[0]
      })
-     console.log(IncorrectQuest)
+     const IncorrectQuest2 = Questions.map(function(incorrectAnswer) {
+        return incorrectAnswer.incorrect_answers[1]
+    })
+    const IncorrectQuest3 = Questions.map(function(incorrectAnswer) {
+        return incorrectAnswer.incorrect_answers[2]
+    })
+
 
      let html = ``
-     Questions.forEach(question=>{
-         html += `<div class="card m-2 card-boddy">
+     Questions.forEach((question, index)=>{
+         html += `                <div class="card m-2 card-boddy">
          <div class="card-body">
            ${question.question}
            <div class="input-group">
-  <div class="input-group-prepend">
+  <div class="input-group-prepend m-2">
     <div class="input-group-text">
-      <input type="radio" aria-label="Radio button for following text input">
+      <input type="radio" name="${index}"aria-label="Radio button for following text input">
+      ${IncorrectQuest1[index]}
     </div>
   </div>
-   ${question.correct_answer}
-   ${IncorrectQuest}
+  <div class="input-group-prepend m-2">
+     <div class="input-group-text">
+       <input type="radio" name="${index}"aria-label="Radio button for following text input">
+         ${IncorrectQuest2[index]}
+     </div>
+   </div>
+   <div class="input-group-prepend m-2">
+     <div class="input-group-text">
+       <input type="radio" name="${index}"aria-label="Radio button for following text input">
+         ${IncorrectQuest3[index]}
+     </div>
+   </div>
+   <div class="input-group-prepend m-2">
+     <div class="input-group-text">
+       <input type="radio" name="${index}"aria-label="Radio button for following text input">
+         ${CorrectQuest[index]}
+     </div>
+   </div>
 </div>
-         </div>
+   </div>
        </div>`
      })
      PrintQuestions.innerHTML = html
 }
+else if(selectType() == 'boolean'){
+    const CorrectQuest = Questions.map(function(CorrectAns) {
+       return CorrectAns.correct_answer
+   })
+
+    const IncorrectQuest1 = Questions.map(function(incorrectAnswer) {
+        return incorrectAnswer.incorrect_answers[0]
+    })
+
+
+    let html = ``
+    Questions.forEach((question, index)=>{
+        html += `<div class="card m-2 card-boddy">
+        <div class="card-body">
+          ${question.question}
+          <div class="input-group">
+ <div class="input-group-prepend m-2">
+   <div class="input-group-text">
+     <input type="radio" name="${index}"aria-label="Radio button for following text input">
+     ${IncorrectQuest1[index]}
+   </div>
+ </div>
+  <div class="input-group-prepend m-2">
+    <div class="input-group-text">
+      <input type="radio" name="${index}"aria-label="Radio button for following text input">
+        ${CorrectQuest[index]}
+    </div>
+  </div>
+</div>
+  </div>
+      </div>`
+    })
+    PrintQuestions.innerHTML = html
+} 
+
+}
+
+// function ht(incorrectAnswers) {
+//     let html = ''
+//     incorrectAnswers.forEach((element) => {
+//         return html += element[1]
+//     })
+//     return html
+// }
+
+// //Esto era para hacer las preguntas random 
+// const Answers =[IncorrectQuest1, IncorrectQuest2, IncorrectQuest3, CorrectQuest]
+// console.log(Answers)
+
+// ${Answers[Math.floor(Math.random()*Answers.length)][index]}

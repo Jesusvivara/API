@@ -29,10 +29,12 @@
 
         <div class="form-group">
             <label class="h2"for="selectTypeQuest">Selecciona El tipo de respuesta</label>
-            <select onchange="selectType()" class="form-control" id="selectTypeQuest">
+            <select onclick="selectType()" class="form-control" id="selectTypeQuest">
                 <option>Tipo de Preguntas</option>
-                <option value="multiple">Opcion Multiple</option>
                 <option value="boolean">Verdadero o Falso</option>
+                <option value="multiple">Opcion Multiple</option>
+
+                
             </select>
         </div>
         <button onclick="getDataTrivia()" type="submit" class="btn btn-primary btn-lg btn-block">Enviar</button>
@@ -40,25 +42,6 @@
         <div class="container">
             <div class="row" id="Questions">
 
-                <div class="card m-2 card-boddy">
-                    <div class="card-body">
-                      Aqui van las preguntas
-                      <div class="input-group">
-             <div class="input-group-prepend m-2">
-               <div class="input-group-text">
-                 <input type="radio" aria-label="Radio button for following text input">
-                   aqui van las respuestas
-               </div>
-             </div>
-             <div class="input-group-prepend m-2">
-                <div class="input-group-text">
-                  <input type="radio" aria-label="Radio button for following text input">
-                    aqui van las respuestas
-                </div>
-              </div>
-           </div>
-                    </div>
-                  </div>
             </div>
         </div>
     </div>
